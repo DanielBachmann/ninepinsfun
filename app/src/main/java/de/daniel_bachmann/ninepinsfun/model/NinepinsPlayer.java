@@ -18,24 +18,27 @@ public class NinepinsPlayer {
         return mId;
     }
 
-    public void setmId(long mId) {
+    public NinepinsPlayer setmId(long mId) {
         this.mId = mId;
+        return this;
     }
 
     public String getmName() {
         return mName;
     }
 
-    public void setmName(String mName) {
+    public NinepinsPlayer setmName(String mName) {
         this.mName = mName;
+        return this;
     }
 
     public String getmDescription() {
         return mDescription;
     }
 
-    public void setmDescription(String mDescription) {
+    public NinepinsPlayer setmDescription(String mDescription) {
         this.mDescription = mDescription;
+        return this;
     }
 
     //Todo: Check if this could be done nicer, I would like to use an interface for the next methods

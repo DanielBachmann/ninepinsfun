@@ -20,4 +20,8 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
+    <style name="MyButton" parent="Base.TextAppearance.AppCompat.Button" >
+        <item name="backgroundTint">@color/color_throw_marked</item>
+    </style>
+
 </resources>

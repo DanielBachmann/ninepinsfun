@@ -1,6 +1,6 @@
 package de.daniel_bachmann.ninepinsfun;
 
-import android.net.Uri;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,24 +8,18 @@ import android.view.View;
 import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
-import de.daniel_bachmann.ninepinsfun.model.NinepinsDatabase;
-import de.daniel_bachmann.ninepinsfun.model.NinepinsPlayer;
-import de.daniel_bachmann.ninepinsfun.view.ThrowInputFragment;
+import de.daniel_bachmann.ninepinsfun.controller.NinepinsAppController;
 import okhttp3.OkHttpClient;
 
-public class MainActivity extends AppCompatActivity implements ThrowInputFragment.OnFragmentInputListener {
-    @Override
-    public void onFragmentInput(long player, long points) {
+public class MainActivity extends AppCompatActivity {
 
-    }
+    private NinepinsAppController mAppController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        NinepinsDatabase.initialize(this);
-
-        testCode();
+        mAppController = NinepinsAppController.getController(this);
 
         setContentView(R.layout.activity_main);
 
@@ -36,13 +30,7 @@ public class MainActivity extends AppCompatActivity implements ThrowInputFragmen
                 .build();
     }
 
-    private void testCode(){
-
-        int i = 1;//this is mainly to have a breakpoint for the debugger
-
-    }
-
-    @Override
+    /*@Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         View decorView = getWindow().getDecorView();
@@ -50,5 +38,5 @@ public class MainActivity extends AppCompatActivity implements ThrowInputFragmen
             decorView.setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_FULLSCREEN
                             | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);}
-    }
+    }*/
 }

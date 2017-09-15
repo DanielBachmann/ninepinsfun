@@ -18,24 +18,27 @@ public class NinepinsThrows {
         return mId;
     }
 
-    public void setmId(long mId) {
+    public NinepinsThrows setmId(long mId) {
         this.mId = mId;
+        return this;
     }
 
     public long getmPlayer() {
         return mPlayer;
     }
 
-    public void setmPlayer(long mPlayer) {
+    public NinepinsThrows setmPlayer(long mPlayer) {
         this.mPlayer = mPlayer;
+        return this;
     }
 
     public long getmPoints() {
         return mPoints;
     }
 
-    public void setmPoints(long mPoints) {
+    public NinepinsThrows setmPoints(long mPoints) {
         this.mPoints = mPoints;
+        return this;
     }
 
     public NinepinsThrows loadById(long id){
