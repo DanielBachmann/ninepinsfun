@@ -22,6 +22,7 @@ public class NinepinsThrowsGames {
         ContentValues values = new ContentValues();
         values.put(NinepinsDataHelper.TABLE_THROWS_GAMES_COLUMN_THROW, mThrow);
         values.put(NinepinsDataHelper.TABLE_THROWS_GAMES_COLUMN_GAME, mGame);
+        values.put(NinepinsDataHelper.TABLE_THROWS_GAMES_COLUMN_COUNT, mCount);
 
         db.insert(NinepinsDataHelper.TABLE_THROWS_GAMES, null, values);
 

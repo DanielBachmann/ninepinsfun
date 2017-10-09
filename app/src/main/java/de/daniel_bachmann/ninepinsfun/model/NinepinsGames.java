@@ -20,40 +20,45 @@ public class NinepinsGames {
         return mId;
     }
 
-    public void setmId(long mId) {
+    public NinepinsGames setmId(long mId) {
         this.mId = mId;
+        return this;
     }
 
     public long getmVariation() {
         return mVariation;
     }
 
-    public void setmVariation(long mVariation) {
+    public NinepinsGames setmVariation(long mVariation) {
         this.mVariation = mVariation;
+        return this;
     }
 
     public long getmBegin() {
         return mBegin;
     }
 
-    public void setmBegin(long mBegin) {
+    public NinepinsGames setmBegin(long mBegin) {
         this.mBegin = mBegin;
+        return this;
     }
 
     public long getmEnd() {
         return mEnd;
     }
 
-    public void setmEnd(long mEnd) {
+    public NinepinsGames setmEnd(long mEnd) {
         this.mEnd = mEnd;
+        return this;
     }
 
     public long getmPlace() {
         return mPlace;
     }
 
-    public void setmPlace(long mPlace) {
+    public NinepinsGames setmPlace(long mPlace) {
         this.mPlace = mPlace;
+        return this;
     }
 
     public NinepinsGames loadById(long id){

@@ -1,27 +1,37 @@
 package de.daniel_bachmann.ninepinsfun;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
+import java.util.ArrayList;
+
 import de.daniel_bachmann.ninepinsfun.controller.NinepinsAppController;
+import de.daniel_bachmann.ninepinsfun.controller.NinepinsPlayerAdapter;
+import de.daniel_bachmann.ninepinsfun.model.NinepinsPlayer;
 import okhttp3.OkHttpClient;
 
 public class MainActivity extends AppCompatActivity {
 
     private NinepinsAppController mAppController;
+    private ArrayList<NinepinsPlayer> mPlayersList;
+    private RecyclerView mRecyclerView;
+    private LinearLayoutManager mLinearLayoutManager;
+    private NinepinsPlayerAdapter mAdapter;
+
+    private ArrayList<NinepinsPlayer> mPlayerList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         mAppController = NinepinsAppController.getController(this);
-
-        setContentView(R.layout.activity_main);
+        mAppController.initGame();
 
         Stetho.initializeWithDefaults(this);
 

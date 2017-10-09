@@ -96,6 +96,9 @@ public class NinepinsDataHelper extends SQLiteOpenHelper {
             sqLiteDatabase.execSQL(gameVariation);
             Log.d(LOG_TAG, gameVariation);
         }
+
+        //create a place
+        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_PLACES +" VALUES (null, 'Sozialzentrum', null);");
     }
 
     @Override

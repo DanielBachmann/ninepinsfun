@@ -4,15 +4,60 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-/**
- * Created by danie_000 on 11.09.2017.
- */
+import java.util.ArrayList;
 
 public class NinepinsPlayer {
 
     private Long mId = null;
     private String mName = null;
     private String mDescription = null;
+
+    public static ArrayList<NinepinsPlayer> getAllPlayers(){
+        ArrayList<NinepinsPlayer> playerList = new ArrayList<NinepinsPlayer>();
+
+        SQLiteDatabase db = NinepinsDatabase.getDatabase();
+
+        String[] projection = {
+                NinepinsDataHelper.TABLE_PLAYERS_COLUMN_ID,
+                NinepinsDataHelper.TABLE_PLAYERS_COLUMN_NAME,
+                NinepinsDataHelper.TABLE_PLAYERS_COLUMN_DESCRIPTION,
+
+        };
+
+        Cursor cursor = db.query(
+                NinepinsDataHelper.TABLE_PLAYERS,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                null
+
+        );
+
+        while(cursor.moveToNext()){
+            NinepinsPlayer tmpPlayer = new NinepinsPlayer();
+
+            tmpPlayer
+                    .setmId(
+                    cursor.getLong(
+                            cursor.getColumnIndexOrThrow(NinepinsDataHelper.TABLE_PLAYERS_COLUMN_ID))
+                    )
+                    .setmDescription(
+                    cursor.getString(
+                            cursor.getColumnIndex(NinepinsDataHelper.TABLE_PLAYERS_COLUMN_DESCRIPTION))
+                    )
+                    .setmName(
+                        cursor.getString(cursor.getColumnIndex(NinepinsDataHelper.TABLE_PLAYERS_COLUMN_NAME))
+                    );
+
+            playerList.add(tmpPlayer);
+        }
+        cursor.close();
+
+        return playerList;
+
+    }
 
     public long getmId() {
         return mId;
@@ -56,7 +101,7 @@ public class NinepinsPlayer {
 
         };
 
-        // Filter results WHERE "title" = 'My Title'
+        // Filter results
         String selection = NinepinsDataHelper.TABLE_PLAYERS_COLUMN_ID + " = ?";
         String[] selectionArgs = { ""+id };
 
