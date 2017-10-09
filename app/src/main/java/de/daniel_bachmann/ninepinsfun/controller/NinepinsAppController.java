@@ -52,8 +52,7 @@ public class NinepinsAppController implements OnFragmentInputListener{
         NinepinsDatabase.initialize(mContext);
     }
 
-    public void initGame(){
-        //Todo: Choose game variation and place, offer choice to continue aborted games
+    public void initialize(){
 
 
     }

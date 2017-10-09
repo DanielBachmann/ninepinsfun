@@ -22,8 +22,6 @@ public class HighnumbersInputFragment extends Fragment {
     private NinepinsThrows mThrowInput;
     private NinepinsGames mGame;
     private int mRound;
-    private NinepinsPositionsHolder mPositionsHolder;
-    private NinepinsPositionsHolder newPositions;
 
     private Button position1Button = null;
     private Button position2Button = null;
@@ -47,8 +45,8 @@ public class HighnumbersInputFragment extends Fragment {
         return this;
     }
 
-    public HighnumbersInputFragment setPositionsHolder(NinepinsPositionsHolder holder){
-        newPositions = mPositionsHolder = holder;
+    public HighnumbersInputFragment setPositionsHolder(){
+
         return this;
     }
 
@@ -57,10 +55,9 @@ public class HighnumbersInputFragment extends Fragment {
         return this;
     }
 
-    public static HighnumbersInputFragment newInstance(NinepinsThrows throwInput, NinepinsPositionsHolder positionsHolder) {
+    public static HighnumbersInputFragment newInstance(NinepinsThrows throwInput) {
         HighnumbersInputFragment fragment = new HighnumbersInputFragment();
         fragment.setThrowInput(throwInput);
-        fragment.setPositionsHolder(positionsHolder);
         return fragment;
     }
 
@@ -74,7 +71,7 @@ public class HighnumbersInputFragment extends Fragment {
 
     public void onPositionClick(View view){
         //whatever we did before with newPositions (if anything) is now irrelevant
-        newPositions = mPositionsHolder;
+
 
         int position = -1;
 
@@ -94,7 +91,6 @@ public class HighnumbersInputFragment extends Fragment {
 
         }
 
-        newPositions.setPosition(position, (int) mThrowInput.getmPoints());
 
         //reset buttons
         initPositionButtons();
@@ -130,40 +126,7 @@ public class HighnumbersInputFragment extends Fragment {
     }
 
     private void initPositionButtons(){
-        position1Button = fragmentView.findViewById(R.id.position_1);
 
-        if(!position1Button.hasOnClickListeners()) position1Button.setOnClickListener(onClickListener);
-
-        if(mPositionsHolder.getPosition(0)!= null){
-            position1Button.setText(""+mPositionsHolder.getPosition(0));
-            position1Button.setEnabled(false);
-        }else{
-            position1Button.setText("__");
-        }
-
-        position2Button = fragmentView.findViewById(R.id.position_2);
-
-        if(!position2Button.hasOnClickListeners()) position2Button.setOnClickListener(onClickListener);
-
-
-        if(mPositionsHolder.getPosition(1)!= null){
-            position2Button.setText(""+mPositionsHolder.getPosition(1));
-            position2Button.setEnabled(false);
-        }else{
-            position2Button.setText("__");
-        }
-
-        position3Button = fragmentView.findViewById(R.id.position_3);
-
-        if(!position3Button.hasOnClickListeners()) position3Button.setOnClickListener(onClickListener);
-
-
-        if(mPositionsHolder.getPosition(2)!= null){
-            position3Button.setText(""+mPositionsHolder.getPosition(2));
-            position3Button.setEnabled(false);
-        }else{
-            position3Button.setText("__");
-        }
     }
 
 }

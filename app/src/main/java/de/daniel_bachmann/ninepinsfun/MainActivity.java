@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAppController = NinepinsAppController.getController(this);
-        mAppController.initGame();
+        mAppController.initialize();
 
         Stetho.initializeWithDefaults(this);
 
