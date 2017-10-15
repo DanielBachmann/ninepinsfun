@@ -6,12 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-import de.daniel_bachmann.ninepinsfun.model.NinepinsDatabase;
-import de.daniel_bachmann.ninepinsfun.model.NinepinsGames;
-import de.daniel_bachmann.ninepinsfun.model.NinepinsGamesPlayers;
-import de.daniel_bachmann.ninepinsfun.model.NinepinsPlaces;
-import de.daniel_bachmann.ninepinsfun.model.NinepinsPlayer;
-import de.daniel_bachmann.ninepinsfun.model.NinepinsThrows;
+import de.daniel_bachmann.ninepinsfun.R;
+import de.daniel_bachmann.ninepinsfun.model.*;
+import de.daniel_bachmann.ninepinsfun.view.ManagePlayersFragment;
 import de.daniel_bachmann.ninepinsfun.view.OnFragmentInputListener;
 
 public class NinepinsAppController implements OnFragmentInputListener{
@@ -22,15 +19,11 @@ public class NinepinsAppController implements OnFragmentInputListener{
     private AppCompatActivity mCurrentActivity;
 
     private Fragment mFragmentHolder;
+    private SubCtrlInterface mSubController;
 
-    private ArrayList<NinepinsPlayer> mPlayerList;
-    private NinepinsPlaces mPlace;
-    private int activePlayer = 0;
-
-    private int countThrowsInGame = 0;
-    private int round = 0;
-
-    private NinepinsGames currentGame;
+    private NinepinsGames mCurrentGame = null;
+    private ArrayList<NinepinsPlayer> mPlayerList = null;
+    private NinepinsGameVariationInterface mGameVariation = null;
 
     public static NinepinsAppController getController(Context context){
         if(staticController==null){
@@ -44,6 +37,18 @@ public class NinepinsAppController implements OnFragmentInputListener{
         return staticController.getCurrentActivity();
     }
 
+    private AppCompatActivity getCurrentActivity(){
+        return mCurrentActivity;
+    }
+
+    public static SubCtrlInterface getCurrentSubCtrl(){
+        return staticController.getmSubController();
+    }
+
+    public SubCtrlInterface getmSubController(){
+        return mSubController;
+    }
+
     private NinepinsAppController(Context context){
         mContext = context.getApplicationContext();
 
@@ -55,9 +60,20 @@ public class NinepinsAppController implements OnFragmentInputListener{
     public void initialize(){
 
 
+        mFragmentHolder = ManagePlayersFragment.newInstance();
+
+        NinepinsAppController.getActivity()
+                .getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.root_layout, mFragmentHolder, "ManagePlayers")
+                .commit();
     }
 
-    private void startGame(){
+    public void startGame(){
+
+    }
+
+    public void endGame(){
 
     }
 
@@ -73,15 +89,9 @@ public class NinepinsAppController implements OnFragmentInputListener{
         //enter relation of players to this game to the database
         mPlayerList = playerList;
 
-        for(NinepinsPlayer player : mPlayerList){
-            new NinepinsGamesPlayers()
-                    .setWithObjects(currentGame,player)
-                    .saveToDatabase();
-        }
-
         mCurrentActivity.getSupportFragmentManager().beginTransaction().remove(mFragmentHolder).commit();
 
-        startGame();
+        //startGame();
     }
 
     public NinepinsAppController setCurrentActivity(AppCompatActivity activity){
@@ -89,9 +99,7 @@ public class NinepinsAppController implements OnFragmentInputListener{
         return this;
     }
 
-    private AppCompatActivity getCurrentActivity(){
-        return mCurrentActivity;
-    }
+
 
 
 }

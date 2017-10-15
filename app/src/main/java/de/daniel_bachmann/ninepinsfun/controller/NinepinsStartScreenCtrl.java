@@ -1,24 +1,36 @@
 package de.daniel_bachmann.ninepinsfun.controller;
 
-import android.content.res.Resources;
+import android.support.v4.app.Fragment;
+import android.view.View;
 
-import de.daniel_bachmann.ninepinsfun.model.NinepinsPlayer;
-import de.daniel_bachmann.ninepinsfun.view.ThrowInputFragment;
+import de.daniel_bachmann.ninepinsfun.R;
+import de.daniel_bachmann.ninepinsfun.view.ManagePlayersFragment;
+import de.daniel_bachmann.ninepinsfun.view.StartScreenFragment;
 
-public class NinepinsStartScreenCtrl {
+public class NinepinsStartScreenCtrl implements SubCtrlInterface{
 
     public NinepinsStartScreenCtrl(){
 
     }
 
-    public NinepinsStartScreenCtrl startFragment(){
-        Resources res = NinepinsAppController.getActivity().getResources();
+    public Fragment startFragment(){
+        Fragment fragmentHolder = StartScreenFragment.newInstance();
 
         NinepinsAppController.getActivity()
                 .getSupportFragmentManager()
                 .beginTransaction()
-                .add(ThrowInputFragment.newInstance( ,new NinepinsPlayer().loadById(1)), )
+                .add(R.id.root_layout, fragmentHolder, "startScreen")
+                .commit();
 
-        return this;
+        return fragmentHolder;
+    }
+
+    public void onFragmentButton(View view){
+        NinepinsAppController.getActivity()
+                .getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.root_layout, ManagePlayersFragment.newInstance(), "managePlayers")
+                .addToBackStack(null)
+                .commit();
     }
 }

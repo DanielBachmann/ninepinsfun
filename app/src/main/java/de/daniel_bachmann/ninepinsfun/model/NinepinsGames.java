@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 /**
  * Created by danie_000 on 11.09.2017.
  */
@@ -74,7 +76,6 @@ public class NinepinsGames {
                 NinepinsDataHelper.TABLE_GAMES_COLUMN_PLACE
         };
 
-        // Filter results WHERE "title" = 'My Title'
         String selection = NinepinsDataHelper.TABLE_GAMES_COLUMN_ID + " = ?";
         String[] selectionArgs = { ""+id };
 
@@ -96,19 +97,17 @@ public class NinepinsGames {
         mId = cursor.getLong(
                 cursor.getColumnIndexOrThrow(NinepinsDataHelper.TABLE_GAMES_COLUMN_ID));
 
-        mId = cursor.getLong(
+        mVariation = cursor.getLong(
                 cursor.getColumnIndexOrThrow(NinepinsDataHelper.TABLE_GAMES_COLUMN_VARIATION));
 
-        mId = cursor.getLong(
+        mBegin = cursor.getLong(
                 cursor.getColumnIndexOrThrow(NinepinsDataHelper.TABLE_GAMES_COLUMN_BEGIN));
 
-        mId = cursor.getLong(
+        mEnd = cursor.getLong(
                 cursor.getColumnIndexOrThrow(NinepinsDataHelper.TABLE_GAMES_COLUMN_END));
 
-        mId = cursor.getLong(
+        mPlace = cursor.getLong(
                 cursor.getColumnIndexOrThrow(NinepinsDataHelper.TABLE_GAMES_COLUMN_PLACE));
-
-
 
         cursor.close();
 
@@ -152,5 +151,71 @@ public class NinepinsGames {
         db.delete(NinepinsDataHelper.TABLE_GAMES, selection, selectionArgs);
 
         return this;
+    }
+
+    public static ArrayList<NinepinsGames> getUnfinishedGames(){
+        ArrayList<NinepinsGames> unfinishedGames = new ArrayList<NinepinsGames>();
+
+        SQLiteDatabase db = NinepinsDatabase.getDatabase();
+
+        String[] projection = {
+                NinepinsDataHelper.TABLE_GAMES_COLUMN_ID,
+                NinepinsDataHelper.TABLE_GAMES_COLUMN_VARIATION,
+                NinepinsDataHelper.TABLE_GAMES_COLUMN_BEGIN,
+                NinepinsDataHelper.TABLE_GAMES_COLUMN_END,
+                NinepinsDataHelper.TABLE_GAMES_COLUMN_PLACE
+        };
+
+
+        String selection = NinepinsDataHelper.TABLE_GAMES_COLUMN_END + " is NULL";
+
+        Cursor cursor = db.query(
+                NinepinsDataHelper.TABLE_GAMES,
+                projection,
+                selection,
+                null,
+                null,
+                null,
+                null
+
+        );
+
+        NinepinsGames tmpGame;
+
+        while(cursor.moveToNext())
+        {
+            tmpGame = new NinepinsGames();
+
+            tmpGame.setmId(
+                    cursor.getLong(
+                            cursor.getColumnIndexOrThrow(NinepinsDataHelper.TABLE_GAMES_COLUMN_ID))
+            );
+
+            tmpGame.setmVariation(
+                    cursor.getLong(
+                            cursor.getColumnIndexOrThrow(NinepinsDataHelper.TABLE_GAMES_COLUMN_VARIATION))
+            );
+
+            tmpGame.setmBegin(
+                    cursor.getLong(
+                            cursor.getColumnIndexOrThrow(NinepinsDataHelper.TABLE_GAMES_COLUMN_BEGIN))
+            );
+
+            tmpGame.setmEnd(
+                    cursor.getLong(
+                            cursor.getColumnIndexOrThrow(NinepinsDataHelper.TABLE_GAMES_COLUMN_END))
+            );
+
+            tmpGame.setmPlace(
+                    cursor.getLong(
+                            cursor.getColumnIndexOrThrow(NinepinsDataHelper.TABLE_GAMES_COLUMN_PLACE))
+            );
+
+            unfinishedGames.add(tmpGame);
+        }
+
+        cursor.close();
+
+        return unfinishedGames;
     }
 }
